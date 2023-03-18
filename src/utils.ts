@@ -56,7 +56,6 @@ export function setCookies(res: Response, cookie: string) {
     httpOnly: true,
     secure: true,
     sameSite: 'none',
-    // domain: process.env.COOKIE_DOMAIN,
+    domain: process.env.COOKIE_DOMAIN,
   })
-  res.cookie('test', 'test')
 }
