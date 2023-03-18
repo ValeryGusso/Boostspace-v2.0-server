@@ -59,7 +59,7 @@ WS.app.ws('/', (webSocket) => {
 //   if (curDay === 3 && curHour === 8) {
 //     // some function
 //   }
-// }, 5000);
+// }, 60 * 60 * 1000);
 
 // REST API
 app.get('/data', checkAuth, DataController.getData)
@@ -79,7 +79,7 @@ app.post('/users/get', checkAuth, PlayerController.getOne)
 app.post('/users/player', checkAuth, PlayerController.updatePlayer)
 app.post('/users/character', checkAuth, PlayerController.updateCharacter)
 app.post('/users/admin', checkAdmin, PlayerController.updateByAdmin)
-app.post('/users/invite', checkAdmin, PlayerController.invite)
+app.post('/users/invite', PlayerController.invite)
 
 /////**********  Start  **********/////
 ;(async () => {

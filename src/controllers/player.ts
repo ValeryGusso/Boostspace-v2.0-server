@@ -106,14 +106,13 @@ export async function updateCharacter(req: Request, res: Response) {
 
 export async function invite(req: Request, res: Response) {
   try {
-
     if (!req.isAdmin) {
       return res.json({
         success: false,
         message: 'Данный функционал доступен только администраторам!',
       })
     }
-    
+
     const { name, group, role } = req.body
 
     const invite = createInvite(name, group, role)

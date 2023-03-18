@@ -9,6 +9,7 @@ export interface PlayerModel
   isAdmin?: boolean
   isActivated?: boolean
   isBanned?: boolean
+  isBatya?: boolean
   inactive?: boolean
   name?: string
   nickname?: string

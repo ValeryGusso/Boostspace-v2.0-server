@@ -10,6 +10,7 @@ export const Player = sequelize.define<PlayerModel>('Player', {
   isAdmin: { type: DataTypes.BOOLEAN, defaultValue: false },
   isActivated: { type: DataTypes.BOOLEAN, defaultValue: false },
   isBanned: { type: DataTypes.BOOLEAN, defaultValue: false },
+  isBatya: { type: DataTypes.BOOLEAN, defaultValue: false },
   inactive: { type: DataTypes.BOOLEAN, defaultValue: false },
   code: { type: DataTypes.INTEGER },
   name: { type: DataTypes.STRING, unique: true },
@@ -83,8 +84,8 @@ Character.belongsTo(CharList)
 TokenList.hasMany(Token)
 Token.belongsTo(TokenList)
 
-// Player.sync({ alter: true })
-// CharList.sync({ alter: true })
-// Character.sync({ alter: true })
-// TokenList.sync({ alter: true })
-// Settings.sync({ alter: true })
+Player.sync({ alter: true })
+CharList.sync({ alter: true })
+Character.sync({ alter: true })
+TokenList.sync({ alter: true })
+Settings.sync({ alter: true })
