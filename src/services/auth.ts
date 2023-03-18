@@ -21,6 +21,14 @@ export async function registration(email: string, password: string, invite: stri
     throw new Error('Код-приглашение недействителен.')
   }
 
+  const samePlayer = await PlayerModels.Player.findOne({
+    where: { email },
+  })
+
+  if (samePlayer?.isActivated) {
+    await samePlayer.destroy()
+  }
+
   const salt = await bcrypt.genSalt(13)
   const hash = await bcrypt.hash(password, salt)
 
