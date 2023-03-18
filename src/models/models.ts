@@ -1,4 +1,4 @@
-import { TokenListModel, TokenModel } from './../interfaces/player.js'
+import { SettingsModel, TokenListModel, TokenModel } from './../interfaces/player.js'
 import { CharacterModel, CharListModel, PlayerModel } from '../interfaces/player.js'
 import sequelize from '../postgres.js'
 import { DataTypes } from 'sequelize'
@@ -20,7 +20,6 @@ export const Player = sequelize.define<PlayerModel>('Player', {
   createdAt: { type: DataTypes.DATE },
   updatedAt: { type: DataTypes.DATE },
 })
-
 
 export const Character = sequelize.define<CharacterModel>('Character', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -51,11 +50,32 @@ export const Token = sequelize.define<TokenModel>('Token', {
   updatedAt: { type: DataTypes.DATE },
 })
 
+export const Settings = sequelize.define<SettingsModel>('Settings', {
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  background: { type: DataTypes.STRING },
+  font: { type: DataTypes.STRING },
+  transition: { type: DataTypes.STRING },
+  mainText: { type: DataTypes.STRING },
+  darkText: { type: DataTypes.STRING },
+  greenText: { type: DataTypes.STRING },
+  activeText: { type: DataTypes.STRING },
+  selectBg: { type: DataTypes.STRING },
+  selectItem: { type: DataTypes.STRING },
+  tableTitle: { type: DataTypes.STRING },
+  tableFirst: { type: DataTypes.STRING },
+  tableSecond: { type: DataTypes.STRING },
+  createdAt: { type: DataTypes.DATE },
+  updatedAt: { type: DataTypes.DATE },
+})
+
 Player.hasOne(CharList)
 CharList.belongsTo(Player)
 
 Player.hasOne(TokenList)
 TokenList.belongsTo(Player)
+
+Player.hasOne(Settings)
+Settings.belongsTo(Player)
 
 CharList.hasMany(Character)
 Character.belongsTo(CharList)
@@ -64,4 +84,7 @@ TokenList.hasMany(Token)
 Token.belongsTo(TokenList)
 
 // Player.sync({ alter: true })
+// CharList.sync({ alter: true })
 // Character.sync({ alter: true })
+// TokenList.sync({ alter: true })
+// Settings.sync({ alter: true })

@@ -11,7 +11,7 @@ export async function registration(req: Request, res: Response) {
     const { email, password, invite } = req.body
     const player = await AuthServise.registration(email, password, invite)
 
-    const message = await MailService.sendCode(email, player.code)
+    const message = await MailService.sendCode(email, player.code!, player.name!)
 
     if (message.sended) {
       return res.json({ success: true, id: player.id })
@@ -42,7 +42,7 @@ export async function activate(req: Request, res: Response) {
 
     await TokenServise.save(player.id, refresh)
     await TokenServise.clearDB(player.id)
-    
+
     setCookies(res, refresh)
 
     return res.json({ player: playerDTO, access })
@@ -77,9 +77,9 @@ export async function login(req: Request, res: Response) {
 export async function logout(req: Request, res: Response) {
   try {
     const { refreshToken } = req.cookies
-    
+
     const success = await TokenServise.deleteToken(refreshToken)
-  
+
     res.clearCookie('refreshToken')
 
     return res.json({ success })
@@ -107,7 +107,7 @@ export async function refresh(req: Request, res: Response) {
 
     const access = TokenServise.createAccess(player)
     const refresh = TokenServise.createRefresh(player.id, player.isAdmin!)
-    
+
     await TokenServise.save(player.id, refresh, token)
     await TokenServise.clearDB(player.id)
 
@@ -128,7 +128,7 @@ export async function getMe(req: Request, res: Response) {
 
     const player = await getOnyById(req.player.id)
     const playerDTO = DTO(player)
-    
+
     return res.json({ player: playerDTO })
   } catch (err: any) {
     console.log(err)

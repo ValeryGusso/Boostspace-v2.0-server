@@ -21,7 +21,7 @@ class MailService {
       },
     } as TransportOptions)
   }
-  public async sendCode(to: string, key: number): Promise<MessageStatus> {
+  public async sendCode(to: string, code: number, name: string): Promise<MessageStatus> {
     try {
       const message = await new Promise((res, rej) => {
         this.transporter.sendMail(
@@ -30,7 +30,95 @@ class MailService {
             to,
             subject: 'Активация аккаунта Boostspace.',
             text: '',
-            html: `${key}`,
+            html: `<body
+            style="
+              margin: 0;
+              padding: 0;
+              width: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              overflow: hidden;
+              background-size: 100px;
+              background-image: url('https://cdn.discordapp.com/attachments/410547970505703436/1086407429555769509/protruding-squares.png');
+            "
+          >
+            <div
+              style="
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 20px 50px;
+                margin: 0;
+        
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              "
+            >
+              <div
+                style="
+                  margin: 0;
+                  padding: 0;
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  justify-content: center;
+                  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                "
+              >
+                <h1
+                  style="
+                    color: #adadad;
+                    font-style: italic;
+                    font-size: 42px;
+                    text-align: center;
+                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                  "
+                >
+                  Рады приветствовать тебя в своих рядах,<br />
+                  товарищ ${name}!
+                </h1>
+                <h2
+                  style="
+                    color: #adadad;
+                    font-style: italic;
+                    font-size: 28px;
+                    text-align: center;
+                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                  "
+                >
+                  Желаю хорошей игры, отсутствия банов и стабильного заработка :) <br />
+                  Удачи!
+                </h2>
+                <p
+                  style="
+                    color: #adadad;
+                    font-style: italic;
+                    font-size: 24px;
+                    text-align: center;
+                    margin-bottom: 10px;
+                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+                  "
+                >
+                  Твой код для активации аккаунта Boostspace:
+                </p>
+                <p style="width: 100%; text-align: center">
+                  <span
+                    style="padding: 10px 20px; color: #adadad; font-size: 32px; border-radius: 10px; border: 2px dashed #adadad"
+                  >
+                    ${code}
+                  </span>
+                </p>
+              </div>
+              <img
+                style="width: 500px; border-radius: 50px"
+                src="https://cdn.discordapp.com/attachments/410547970505703436/1086410702635409408/image.png"
+                alt="logo"
+              />
+            </div>
+          </body>`,
           },
           (err: any) => {
             if (err) {

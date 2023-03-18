@@ -106,6 +106,14 @@ export async function updateCharacter(req: Request, res: Response) {
 
 export async function invite(req: Request, res: Response) {
   try {
+
+    if (!req.isAdmin) {
+      return res.json({
+        success: false,
+        message: 'Данный функционал доступен только администраторам!',
+      })
+    }
+    
     const { name, group, role } = req.body
 
     const invite = createInvite(name, group, role)
@@ -119,7 +127,6 @@ export async function invite(req: Request, res: Response) {
 
 export async function updateByAdmin(req: Request, res: Response) {
   try {
-
     if (!req.isAdmin) {
       return res.json({
         success: false,
@@ -128,7 +135,7 @@ export async function updateByAdmin(req: Request, res: Response) {
     }
 
     const { id, name, group, inactive, isBanned } = req.body
-    
+
     const success = await PlayerServise.updateByAdmin(id, name, group, inactive, isBanned)
 
     return res.json({ success, id })

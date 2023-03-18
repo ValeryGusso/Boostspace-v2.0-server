@@ -11,8 +11,6 @@ import { checkAuth } from './middlewares/checkAuth.js'
 import { checkAdmin } from './middlewares/checkAdmin.js'
 import { PlayerToken } from './services/token.js'
 
-dotenv.config()
-
 declare global {
   namespace Express {
     interface Request {
@@ -21,6 +19,8 @@ declare global {
     }
   }
 }
+
+dotenv.config()
 
 const app = express()
 const WS = expressWS(app)

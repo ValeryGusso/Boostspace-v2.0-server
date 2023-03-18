@@ -209,7 +209,7 @@ export async function updateByAdmin(
     player.update({ inactive })
   }
 
-  if (typeof isBanned === 'boolean') {
+  if (typeof isBanned === 'boolean' && !player.isAdmin) {
     player.update({ isBanned })
   }
 

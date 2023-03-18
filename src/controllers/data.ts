@@ -12,7 +12,6 @@ import {
   getPaymentsList,
   sortOrders,
 } from '../services/spreadsheet.js'
-import { numParse } from '../utils.js'
 
 export const getData = async (req: Request, res: Response<DataResponse | ErrorResponse>) => {
   try {

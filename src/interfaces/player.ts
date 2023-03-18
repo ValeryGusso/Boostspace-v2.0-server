@@ -5,7 +5,7 @@ export interface PlayerModel
   id: CreationOptional<number>
   email: string
   password: string
-  code: number
+  code: number | null
   isAdmin?: boolean
   isActivated?: boolean
   isBanned?: boolean
@@ -14,8 +14,7 @@ export interface PlayerModel
   nickname?: string
   role?: string
   group?: number
-  avatar?: string
-  invite?: string
+  avatar?: string | null
   CharList?: CharListModel
   createdAt?: CreationOptional<Date>
   updatedAt?: CreationOptional<Date>
@@ -53,8 +52,28 @@ export interface TokenListModel
 export interface TokenModel
   extends Model<InferAttributes<TokenModel>, InferCreationAttributes<TokenModel>> {
   id: CreationOptional<number>
-  token: string
+  token: string | null
   TokenListId?: number
+  createdAt?: CreationOptional<Date>
+  updatedAt?: CreationOptional<Date>
+}
+
+export interface SettingsModel
+  extends Model<InferAttributes<SettingsModel>, InferCreationAttributes<SettingsModel>> {
+  id: CreationOptional<number>
+  background: string | null
+  font: string | null
+  transition: string | null
+  mainText: string | null
+  darkText: string | null
+  greenText: string | null
+  activeText: string | null
+  selectBg: string | null
+  selectItem: string | null
+  tableTitle: string | null
+  tableFirst: string | null
+  tableSecond: string | null
+  PlayerId?: number
   createdAt?: CreationOptional<Date>
   updatedAt?: CreationOptional<Date>
 }

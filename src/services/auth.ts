@@ -39,6 +39,8 @@ export async function registration(email: string, password: string, invite: stri
 
   await PlayerModels.TokenList.create({ PlayerId: player.id })
 
+  await PlayerModels.Settings.create({ PlayerId: player.id })
+
   await PlayerModels.Character.create({ CharListId: charList.id, type: 'main' })
   await PlayerModels.Character.create({ CharListId: charList.id, type: 'first' })
   await PlayerModels.Character.create({ CharListId: charList.id, type: 'second' })
@@ -62,6 +64,7 @@ export async function login(login: string, password: string) {
           email: login,
         },
         { name: { [Op.iRegexp]: login } },
+        { nickname: { [Op.iRegexp]: login } },
       ],
     },
     include: [{ all: true, nested: true }],
