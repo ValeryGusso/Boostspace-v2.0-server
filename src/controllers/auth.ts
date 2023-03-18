@@ -122,11 +122,14 @@ export async function refresh(req: Request, res: Response) {
 
 export async function getMe(req: Request, res: Response) {
   try {
+    console.log('Start')
     if (!req.player) {
       return res.status(401).json({ message: 'Пользователь не авторизован!' })
     }
 
+    console.log('Go to DB')
     const player = await getOnyById(req.player.id)
+    console.log('End')
     const playerDTO = DTO(player)
 
     return res.json({ player: playerDTO })

@@ -42,8 +42,12 @@ export function numParse(str: string) {
 }
 
 export async function connectToPostgres() {
-  await sequelize.authenticate()
-  await sequelize.sync()
+  try {
+    await sequelize.authenticate()
+    // await sequelize.sync()
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 export function getRandom(min: number, max: number) {
@@ -56,6 +60,6 @@ export function setCookies(res: Response, cookie: string) {
     httpOnly: true,
     secure: true,
     sameSite: 'none',
-    domain: process.env.COOKIE_DOMAIN,
+    // domain: process.env.COOKIE_DOMAIN,
   })
 }

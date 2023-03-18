@@ -25,7 +25,7 @@ export function createAccess(player: PlayerModel) {
   const token = jwt.sign(
     { id, email, name, isAdmin, isActivated, role, group, avatar },
     process.env.TOKEN_ACCESS_KEY!,
-    { expiresIn: '24h' },
+    { expiresIn: '1h' },
   )
   return token
 }

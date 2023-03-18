@@ -79,7 +79,7 @@ app.post('/users/get', checkAuth, PlayerController.getOne)
 app.post('/users/player', checkAuth, PlayerController.updatePlayer)
 app.post('/users/character', checkAuth, PlayerController.updateCharacter)
 app.post('/users/admin', checkAdmin, PlayerController.updateByAdmin)
-app.post('/users/invite', PlayerController.invite)
+app.post('/users/invite', checkAdmin, PlayerController.invite)
 
 /////**********  Start  **********/////
 ;(async () => {
