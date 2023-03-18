@@ -24,7 +24,7 @@ async function getAllUsersData() {
 
   playersDTO.sort((a, b) => a.group - b.group)
 
-  while (playersDTO[0]?.group === 0) {
+  while (playersDTO[0]?.group === 0 && playersDTO[1] && playersDTO[1].group !== 0) {
     const first = playersDTO.shift()
     if (first) {
       playersDTO.push(first)
