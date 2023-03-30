@@ -10,6 +10,7 @@ import { connectToPostgres } from './utils.js'
 import { checkAuth } from './middlewares/checkAuth.js'
 import { checkAdmin } from './middlewares/checkAdmin.js'
 import { PlayerToken } from './services/token.js'
+import { uptime } from './controllers/timer.js'
 
 declare global {
   namespace Express {
@@ -44,22 +45,20 @@ WS.app.ws('/', (webSocket) => {
     console.log('Socket close')
   })
   webSocket.on('message', (msg) => {
-    if (msg.toString() === 'updated') {
-      wsServer.clients.forEach((client) => {
-        client.send('updated')
-      })
+    switch (msg.toString()) {
+      case 'updated':
+        wsServer.clients.forEach((client) => {
+          client.send('updated')
+        })
+        break
+      case 'ban':
+        wsServer.clients.forEach((client) => {
+          client.send('ban')
+        })
+        break
     }
   })
 })
-
-// setInterval(() => {
-//   const curDate = new Date();
-//   const curDay = curDate.getDay();
-//   const curHour = curDate.getHours();
-//   if (curDay === 3 && curHour === 8) {
-//     // some function
-//   }
-// }, 60 * 60 * 1000);
 
 // REST API
 app.get('/data', checkAuth, DataController.getData)
@@ -80,6 +79,8 @@ app.post('/users/player', checkAuth, PlayerController.updatePlayer)
 app.post('/users/character', checkAuth, PlayerController.updateCharacter)
 app.post('/users/admin', checkAdmin, PlayerController.updateByAdmin)
 app.post('/users/invite', checkAdmin, PlayerController.invite)
+
+app.get('/uptime', uptime)
 
 /////**********  Start  **********/////
 ;(async () => {

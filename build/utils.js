@@ -32,8 +32,13 @@ export function numParse(str) {
     return 0;
 }
 export async function connectToPostgres() {
-    await sequelize.authenticate();
-    await sequelize.sync();
+    try {
+        await sequelize.authenticate();
+        await sequelize.sync({ alter: true });
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 export function getRandom(min, max) {
     return Math.ceil(Math.random() * (max - min) + min);
@@ -45,6 +50,5 @@ export function setCookies(res, cookie) {
         secure: true,
         sameSite: 'none',
     });
-    res.cookie('test', 'test');
 }
 //# sourceMappingURL=utils.js.map

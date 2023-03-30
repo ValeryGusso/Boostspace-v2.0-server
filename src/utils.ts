@@ -44,7 +44,7 @@ export function numParse(str: string) {
 export async function connectToPostgres() {
   try {
     await sequelize.authenticate()
-    await sequelize.sync({ alter: true })
+    // await sequelize.sync({ alter: true })
   } catch (err) {
     console.log(err)
   }
