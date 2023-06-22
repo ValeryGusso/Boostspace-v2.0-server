@@ -103,7 +103,7 @@ export async function getPaymentsList(): Promise<PaymentsList> {
           paid: !row._rawData[index * 2 + 2]?.match(/^0[\.,]00/)
             ? row._rawData[index * 2 + 2] || null
             : null,
-          currency: row._rawData[index * 2 + 1].includes('$') ? 'usd' : 'rub',
+          currency: row._rawData[index * 2 + 1]?.includes('$') ? 'usd' : 'rub',
         }
         if (!row._rawData[index * 2 + 2]?.match(/^0[\.,]00/)) {
           paid.usd += numParse(row._rawData[index * 2 + 2])
