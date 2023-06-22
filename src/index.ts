@@ -61,6 +61,10 @@ WS.app.ws('/', (webSocket) => {
 })
 
 // REST API
+app.get('/wakeup', (_, res) => {
+  return res.json({ message: 'Im alive!', success: true })
+})
+
 app.get('/data', checkAuth, DataController.getData)
 app.get('/data/calculate', checkAuth, DataController.calculatePeriod)
 app.get('/data/payment', checkAuth, DataController.getPayment)
